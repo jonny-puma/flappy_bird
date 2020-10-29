@@ -1,0 +1,13 @@
+# Vim swap and temp files
+*.swp
+*~
+
+# C object files
+*.o
+
+# binaries
+*.exe
+flappy_bird
+
+# MacOS DS store files
+.DS_Store
