@@ -1,15 +1,5 @@
 #include "sprites.h"
-
-typedef struct {
-	int position;
-	int velocity;
-	int score;
-} gamestate;
-
-typedef struct {
-	char *name;
-	int score;
-} hsentry;
+#include "highscore.h"
 
 typedef struct {
 	float timestep;
@@ -18,12 +8,21 @@ typedef struct {
 	sprite *sp;
 } settings;
 
+typedef struct {
+  int x;
+  int y;
+  int size;
+  int speed;
+} obstacle;
 
-/*
- * High score list
- * TODO: save and retrieve from file
- */
-hsentry *highscores;
+typedef struct {
+	int bird_y;
+  int bird_x;
+	int velocity;
+	int score;
+  obstacle *ob;
+} gamestate;
+
 
 /* 
  * set up and close ncurses
@@ -34,27 +33,36 @@ void closecurses();
 /*
  * Run game
  */
-void gameloop();
+void gameloop(gamestate *gs, settings *set);
+bool isalive(gamestate *gs);
+int gameover(gamestate *gs);
 
 /*
  * Set up the gamestate end settings
  */
-void initgs(gamestate *gs, settings *set);
+void initgame(gamestate *gs, settings *set);
 
 /*
  * Print game state with curses
  */
-void printgame(gamestate gs, settings set);
+void printgame(gamestate *gs, settings *set);
+void printobstacle(obstacle ob);
+void printwelcome();
+void prinths();
+
+/*
+ * Replace whitespace with underscore
+ */
+void sanitize(char string[NAMELEN+1]);
 
 /*
  * Increment game dynamics with one timestep
  */
-void physics(gamestate *gs, settings set, int input);
+void physics(gamestate *gs, settings *set, int input);
 
 /*
  * Update gamestate
  * 	- update score
- * 	- TODO: check if dead
  */
 void updategs(gamestate *gs);
 
@@ -67,4 +75,4 @@ const char *welcome_prompt[] = {"  ______ _                           ____  _   
 	 													    "                | |   | |     __/ |                    ",
 	 													    "                |_|   |_|    |___/                     \n"};
 	
-	void printwelcome();
+

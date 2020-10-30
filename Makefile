@@ -2,9 +2,9 @@
 
 LDFLAGS = -lncurses
 CFLAGS = -O3 -Wall
-DEPS = fp.h sprites.h
+DEPS = fp.h sprites.h highscore.h
 CC = clang
-OBJS = fp.o sprites.o
+OBJS = fp.o sprites.o highscore.o
 
 flappy_bird : $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -14,4 +14,4 @@ flappy_bird : $(OBJS)
 
 .PHONY: clean
 clean:
-	rm -f *.o flappy_bird
+	rm -f *.o flappy_bird highscores.txt
