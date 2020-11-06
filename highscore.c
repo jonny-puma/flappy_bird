@@ -25,13 +25,10 @@ void loadhs() {
     free(name);
   } else {
     for (int i=0; i<NSCORES; i++) {
-      // int buffsize = 128;
-      // char buffer[buffsize];
-      // fgets(buffer, buffsize, hsfile);
       fscanf(hsfile, "%s %i\n", highscores[i].name, &highscores[i].score);
     }
+    fclose(hsfile);
   }
-  fclose(hsfile);
 }
 
 void iniths() {

@@ -1,9 +1,18 @@
 #!/bin/make
 
+ifeq ($(shell uname), Darwin)
+	CC = clang
+else
+	CC = gcc
+endif
 LDFLAGS = -lncurses
-CFLAGS = -O3 -Wall
+ifdef debug
+	CFLAGS = -g -Wall
+else
+	CFLAGS = -O3
+endif
+CFLAGS += -std=c99
 DEPS = fp.h sprites.h highscore.h
-CC = clang
 OBJS = fp.o sprites.o highscore.o
 
 flappy_bird : $(OBJS)
@@ -15,3 +24,5 @@ flappy_bird : $(OBJS)
 .PHONY: clean
 clean:
 	rm -f *.o flappy_bird highscores.txt
+uname:
+	echo $(shell uname)	
