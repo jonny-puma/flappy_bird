@@ -11,3 +11,6 @@ flappy_bird
 
 # MacOS DS store files
 .DS_Store
+
+# High score file
+highscores.txt
